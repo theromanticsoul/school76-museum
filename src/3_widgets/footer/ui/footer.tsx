@@ -6,9 +6,7 @@ export function Footer() {
           <p className="text-muted-foreground text-sm">
             © {new Date().getFullYear()} МАОУ СОШ 76. Виртуальный музей.
           </p>
-          <p className="text-muted-foreground text-sm">
-            Создано с использованием AR-технологий
-          </p>
+          <p className="text-muted-foreground text-sm">Мазитова Р. Н.</p>
         </div>
       </div>
     </footer>

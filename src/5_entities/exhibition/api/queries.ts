@@ -1,27 +1,32 @@
 import { type Exhibition, sanity } from "@shared/lib/sanity"
 
-// Для карточек на /exhibitions и главной
 export type ExhibitionCardResult = Pick<
   Exhibition,
-  "_id" | "coverImage" | "curator" | "date" | "description" | "hasAR" | "title"
+  | "_id"
+  | "coverImage"
+  | "curator"
+  | "date"
+  | "hasAR"
+  | "shortDescription"
+  | "title"
 > & {
   exhibitsCount: number
   slug: string
 }
 
-// Для страницы /exhibitions/[slug] — с экспонатами
 export type ExhibitionDetailResult = Pick<
   Exhibition,
   "_id" | "coverImage" | "curator" | "date" | "description" | "hasAR" | "title"
 > & {
   exhibits: Array<{
     _id: string
-    arModelUrl?: string
     description?: string
-    image: Exhibition["coverImage"]
-    positionX?: number
-    positionY?: number
-    title: string
+    model?: {
+      asset?: {
+        url?: string
+      }
+    }
+    title?: string
   }>
   slug: string
 }
@@ -43,10 +48,11 @@ export async function getExhibitionBySlug(
         _id,
         title,
         description,
-        image,
-        arModelUrl,
-        positionX,
-        positionY
+        model {
+          asset-> {
+            url
+          }
+        }
       }
     }`,
     { slug },
@@ -59,6 +65,7 @@ export async function getExhibitions(): Promise<ExhibitionCardResult[]> {
       _id,
       title,
       "slug": slug.current,
+      shortDescription,
       coverImage,
       date,
       curator,
@@ -76,8 +83,8 @@ export async function getLatestExhibitions(
       _id,
       title,
       "slug": slug.current,
+      shortDescription,
       coverImage,
-      description,
       date,
       hasAR,
       "exhibitsCount": count(exhibits)

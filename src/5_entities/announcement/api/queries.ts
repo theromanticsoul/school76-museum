@@ -1,4 +1,3 @@
-// entities/announcement/model/queries.ts
 import { type Announcement, sanity } from "@shared/lib/sanity"
 
 export async function getAnnouncements(): Promise<Announcement[]> {

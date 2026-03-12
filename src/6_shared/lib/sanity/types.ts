@@ -20,6 +20,7 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | SanityAssetSourceData
   | SanityFileAsset
+  | SanityFileAssetReference
   | SanityImageAsset
   | SanityImageAssetReference
   | SanityImageCrop
@@ -51,17 +52,12 @@ export type Exhibit = {
   _rev: string
   _type: "exhibit"
   _updatedAt: string
-  arModelUrl?: string
   description?: string
-  image?: {
-    _type: "image"
-    asset?: SanityImageAssetReference
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
+  model?: {
+    _type: "file"
+    asset?: SanityFileAssetReference
     media?: unknown
   }
-  positionX?: number
-  positionY?: number
   title?: string
 }
 
@@ -80,13 +76,31 @@ export type Exhibition = {
   }
   curator?: string
   date?: string
-  description?: string
+  description?: Array<{
+    _key: string
+    _type: "block"
+    children?: Array<{
+      _key: string
+      _type: "span"
+      marks?: Array<string>
+      text?: string
+    }>
+    level?: number
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      _key: string
+      _type: "link"
+      href?: string
+    }>
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal"
+  }>
   exhibits?: Array<
     ExhibitReference & {
       _key: string
     }
   >
   hasAR?: boolean
+  shortDescription?: string
   slug?: Slug
   title?: string
 }
@@ -132,6 +146,13 @@ export type SanityFileAsset = {
   title?: string
   uploadId?: string
   url?: string
+}
+
+export type SanityFileAssetReference = {
+  _ref: string
+  _type: "reference"
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset"
 }
 
 export type SanityImageAsset = {
@@ -225,8 +246,7 @@ export type SchoolInfo = {
   _rev: string
   _type: "schoolInfo"
   _updatedAt: string
-  contacts?: string
-  description?: Array<{
+  content?: Array<{
     _key: string
     _type: "block"
     children?: Array<{
@@ -244,7 +264,6 @@ export type SchoolInfo = {
     }>
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal"
   }>
-  goals?: Array<string>
 }
 
 export type Slug = {

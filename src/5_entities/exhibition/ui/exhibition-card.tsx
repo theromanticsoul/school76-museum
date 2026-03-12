@@ -56,7 +56,7 @@ export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
             </Badge>
           )}
         </div>
-        <CardDescription>{exhibition.description}</CardDescription>
+        <CardDescription>{exhibition.shortDescription}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between">
