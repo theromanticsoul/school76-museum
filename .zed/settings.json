@@ -1,0 +1,18 @@
+{
+  "project_name": "fsd-nextjs-tailwind-template",
+  "tab_size": 2,
+  "format_on_save": "on",
+  "code_actions_on_format": {
+    "source.fixAll": true,
+  },
+  "lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "classFunctions": ["cva", "cx", "clsx", "cn", "tw"],
+        "experimental": {
+          "classRegex": ["[cls|className]\\s\\:\\=\\s\"([^\"]*)"],
+        },
+      },
+    },
+  },
+}
