@@ -26,7 +26,6 @@ export function AnnouncementsSection({
           <AnnouncementCard
             announcement={announcement}
             key={announcement._id}
-            withSeparator={index < announcements.length - 1}
           />
         ))}
       </div>
